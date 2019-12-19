@@ -9,7 +9,11 @@ package com.dian.model;
 public class User {
 	private String username;
 	private String password;
+	
+	
 //	private Role role;
+	
+	
 	public String getUsername() {
 		return username;
 	}

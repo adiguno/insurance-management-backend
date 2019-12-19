@@ -9,7 +9,18 @@ import com.dian.model.Customer;
 
 @Repository
 public interface CustomerRepository extends CrudRepository<Customer, Long> {
-//	public void deleteById(Long id);
-//	public Optional<Customer> findById(Long id);
-	
+	// Create/Update
+	// 		save
+	//		saveAll
+	// Delete
+	//		deleteById
+	//		deleteAll(Iterable)
+	//		delete
+	//		deleteAll
+	// Read
+	// 		findById
+	//		findAllById
+	//		findAll
+	//		count
+	// 		existById	
 }

@@ -17,6 +17,7 @@ import javax.persistence.Table;
  *	
  * 
  */
+
 @Entity
 @Table(name="CUSTOMER")
 public class Customer {
@@ -47,23 +48,22 @@ public class Customer {
 	@Column(name="BRANCH_ID")
 	private long branchId; // foreign key
 	
-//	public Customer() {}
-//	public Customer(long id, String firstName, String lastName, int age, String sex, Date date, String qualification,
-//			String occupation, String address, String email, String password, long branchId) {
-//		super();
-//		this.id = id;
-//		this.firstName = firstName;
-//		this.lastName = lastName;
-//		this.age = age;
-//		this.sex = sex;
-//		this.date = date;
-//		this.qualification = qualification;
-//		this.occupation = occupation;
-//		this.address = address;
-//		this.email = email;
-//		this.password = password;
-//		this.branchId = branchId;
-//	}
+	public Customer() {}
+	public Customer(String firstName, String lastName, int age, String sex, Date date, String qualification,
+			String occupation, String address, String email, String password, long branchId) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.age = age;
+		this.sex = sex;
+		this.date = date;
+		this.qualification = qualification;
+		this.occupation = occupation;
+		this.address = address;
+		this.email = email;
+		this.password = password;
+		this.branchId = branchId;
+	}
 
 
 	@Override
