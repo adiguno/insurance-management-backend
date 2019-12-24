@@ -15,6 +15,7 @@ import javax.persistence.Table;
 /**
  * @author guodi
  *	
+ * TODO: branch_id foreign key
  * 
  */
 
@@ -45,6 +46,7 @@ public class Customer {
 	private String email;
 	@Column(name="PASSWORD")
 	private String password;
+	
 	@Column(name="BRANCH_ID")
 	private long branchId; // foreign key
 	

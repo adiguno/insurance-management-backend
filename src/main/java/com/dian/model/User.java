@@ -1,8 +1,11 @@
 package com.dian.model;
+
+import java.util.Set;
+
 /**
  * User class
  * @author guodi
- * used to log users in
+ * used to log in
  * TODO: missing role's definition, get/set, toString()
  */
 
@@ -10,8 +13,8 @@ public class User {
 	private String username;
 	private String password;
 	
-	
-//	private Role role;
+//	user's set of roles
+//	private Set<Role> role;
 	
 	
 	public String getUsername() {

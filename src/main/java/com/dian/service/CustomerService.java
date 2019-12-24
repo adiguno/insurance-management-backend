@@ -1,8 +1,12 @@
 package com.dian.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dian.model.Customer;
 import com.dian.repository.CustomerRepository;
 
 // used mainly for testing purposes
@@ -18,6 +22,8 @@ import com.dian.repository.CustomerRepository;
 
 @Service
 public class CustomerService {
+//	@Autowired
+//	public CustomerRepository customerRepository;
 	
 	public final CustomerRepository customerRepository;
 
@@ -27,6 +33,21 @@ public class CustomerService {
 		this.customerRepository = customerRepository;
 	}
 	
+	// add a customer
+	public Customer addCustomer(Customer cus) {
+		customerRepository.save(cus);
+		return cus;
+	}
+
 	// return all customers
+	public List<Customer> getAllCustomers() {
+		return (List<Customer>)customerRepository.findAll();
+		// or
+//		List<Customer> returnList = new ArrayList<>();
+//		customerRepository.findAll().forEach(returnList::add);
+//		returnList = (List<Customer>)customerRepository.findAll();
+//		return returnList;
+	}
+	
 	
 }
