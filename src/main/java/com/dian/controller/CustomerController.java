@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dian.model.Customer;
 import com.dian.service.CustomerService;
 
-@RestController//("/api")
+@RestController
 @RequestMapping("/api")
 public class CustomerController {
 	
