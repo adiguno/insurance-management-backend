@@ -3,7 +3,8 @@
  */
 package com.dian.model;
 
-import java.util.Date;
+
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,24 +27,34 @@ public class Customer {
 	@Column(name="CUTOMER_ID")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
+	
 	@Column(name="FIRST_NAME")
 	private String firstName;
+	
 	@Column(name="LAST_NAME")
 	private String lastName;
+	
 	@Column(name="AGE")
 	private int age;
+	
 	@Column(name="SEX")
 	private String sex;
+	
 	@Column(name="DATE")
-	private Date date;
+	private Date date; // sql date
+	
 	@Column(name="QUALIFICATION")
 	private String qualification;
+	
 	@Column(name="OCCUPATION")
 	private String occupation;
+	
 	@Column(name="ADDRESS")
 	private String address;
+	
 	@Column(name="EMAIL")
 	private String email;
+	
 	@Column(name="PASSWORD")
 	private String password;
 	

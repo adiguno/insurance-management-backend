@@ -20,5 +20,7 @@ public interface CustomerRepository extends CrudRepository<Customer, Long> {
 	//		findAllById
 	//		findAll
 	//		count
-	// 		existById	
+	// 		existById
+	Iterable<Customer> findByLastName(String lastName);
+	Iterable<Customer> findByBranchId(long branchId);
 }
