@@ -18,35 +18,25 @@ import com.dian.repository.CustomerRepository;
 //		all customers
 //		customer by id
 //		customer by last name
-//		customer by email
+//		customer by branch id
 
 @Service
 public class CustomerService {
-//	@Autowired
-//	public CustomerRepository customerRepository;
 	
 	public final CustomerRepository customerRepository;
 
 	@Autowired
 	public CustomerService(CustomerRepository customerRepository) {
-		super();
 		this.customerRepository = customerRepository;
 	}
 	
-	// add a customer
 	public Customer addCustomer(Customer cus) {
 		customerRepository.save(cus);
 		return cus;
 	}
 
-	// return all customers
 	public List<Customer> getAllCustomers() {
 		return (List<Customer>)customerRepository.findAll();
-		// or
-//		List<Customer> returnList = new ArrayList<>();
-//		customerRepository.findAll().forEach(returnList::add);
-//		returnList = (List<Customer>)customerRepository.findAll();
-//		return returnList;
 	}
 	
 	

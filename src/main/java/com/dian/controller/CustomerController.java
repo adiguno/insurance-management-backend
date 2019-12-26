@@ -39,7 +39,7 @@ public class CustomerController {
 		this.customerService = customerService;
 	}
 	
-	// TODO
+	// TODO date
 	@PostMapping("/add")
 	public Customer addNew(@RequestParam(value="firstName") String firstName,
 			@RequestParam(value="lastName") String lastName,
