@@ -3,6 +3,7 @@ package com.dian.controller;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -101,5 +102,10 @@ public class CustomerController {
 	@GetMapping("/lastname")
 	public List<Customer> findByLastName(@RequestParam(value="lastName") String lastName) {
 		return this.customerService.getCustomerByLastName(lastName);
+	}
+	
+	@GetMapping("/id")
+	public Optional<Customer> findById(@RequestParam(value="id") long id) {
+		return this.customerService.getCustomerById(id);
 	}
 }
