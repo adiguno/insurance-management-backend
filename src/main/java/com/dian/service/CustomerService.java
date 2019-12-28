@@ -31,13 +31,26 @@ public class CustomerService {
 	}
 	
 	public Customer addCustomer(Customer cus) {
-		customerRepository.save(cus);
+		this.customerRepository.save(cus);
 		return cus;
 	}
 
 	public List<Customer> getAllCustomers() {
-		return (List<Customer>)customerRepository.findAll();
+		return (List<Customer>)this.customerRepository.findAll();
 	}
 	
+	public List<Customer> getCustomersByBranchId(long branchId) {
+		List<Customer> list = new ArrayList<>();
+		Iterable<Customer> cusIterable = this.customerRepository.findByBranchId(branchId);
+		cusIterable.forEach(list::add);
+		return list;
+	}
+	
+	public List<Customer> getCustomerByLastName(String lastName) {
+		List<Customer> list = new ArrayList<>();
+		Iterable<Customer> itr = this.customerRepository.findByLastName(lastName);
+		itr.forEach(list::add);
+		return list;
+	}
 	
 }

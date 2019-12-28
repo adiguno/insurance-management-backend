@@ -8,15 +8,24 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
  * @author guodi
+ * 
+ * NOTES:
+ * 		- date is from java.sql;
  *	
- * TODO: branch_id foreign key
+ * TODO: 
+ * 	-[ ] branch_id foreign key implementation
+ * 		- [x] many to one (many customers to one branch)
+ * 		- [ ] many to many
  * 
  */
 
@@ -58,7 +67,9 @@ public class Customer {
 	@Column(name="PASSWORD")
 	private String password;
 	
-	@Column(name="BRANCH_ID")
+//	// @Column(name="BRANCH_ID")
+//	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+//	@JoinColumn(name = "BRANCH_ID", nullable=false)
 	private long branchId; // foreign key
 	
 	public Customer() {}

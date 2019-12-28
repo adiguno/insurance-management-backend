@@ -2,6 +2,7 @@ package com.dian.controller;
 
 
 import java.sql.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,18 +14,35 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dian.model.Customer;
 import com.dian.service.CustomerService;
 
+
+
 /**
  * 
  * @author Adiguno
+ * 
+ * NOTES:
+ * 
+ * 
+ * Questions:
+ * 	- why do we need passwords
+ *  - what is the unique identifier (other than id), email and password? or username and password?
+ * 	- only agents should have access to this controller ?
+ * 		- rename to agent's controller?
  *
  * TODO: 
  *  -[x] persist customer with his information (using request param)
  *  	firstName, lastName, age, sex, date, qualification, occupation, address, 
  *  	email, password, branchId
  *  -[ ] fix date parameter
+ *  	- options:
+ *  		1. use today's date
+ *  			- load in pre-existing records before startup (schema.sql ??)
+ *  		2. pass in sql date in query param
  *  
- *  -[ ] retrieve all of the customers
- *  -[ ] retrieve the list of customers with branch id
+ *  -[x] retrieve all of the customers
+ *  -[x] retrieve the list of customers with branch id
+ *  -[x] retrieve the list of customers with last name
+ *  
  *  
  */
 
@@ -71,9 +89,17 @@ public class CustomerController {
 	}
 	
 	@GetMapping("/all") 
-	public String test() {
-		return "something";
+	public List<Customer> findAll() {
+		return customerService.getAllCustomers();
 	}
 	
+	@GetMapping("/branch")
+	public List<Customer> findByBranchId(@RequestParam(value="branchId") long branchId) {
+		return this.customerService.getCustomersByBranchId(branchId);
+	}
 	
+	@GetMapping("/lastname")
+	public List<Customer> findByLastName(@RequestParam(value="lastName") String lastName) {
+		return this.customerService.getCustomerByLastName(lastName);
+	}
 }
