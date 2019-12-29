@@ -22,6 +22,7 @@ import com.dian.service.CustomerService;
  * @author Adiguno
  * 
  * NOTES:
+ *	- using request params
  * 
  * 
  * Questions:
@@ -43,7 +44,10 @@ import com.dian.service.CustomerService;
  *  -[x] retrieve all of the customers
  *  -[x] retrieve the list of customers with branch id
  *  -[x] retrieve the list of customers with last name
+ *  -[ ] get customer by id needs work
  *  
+ *  -[ ] update
+ *  -[ ] delete
  *  
  */
 
@@ -70,8 +74,7 @@ public class CustomerController {
 			@RequestParam(value="address") String address,
 			@RequestParam(value="email") String email,
 			@RequestParam(value="password") String password,
-			@RequestParam(value="branchId") long branchId
-			) {
+			@RequestParam(value="branchId") long branchId) {
 		Customer cus = new Customer();
 		cus.setFirstName(firstName);
 		cus.setLastName(lastName);
@@ -79,12 +82,11 @@ public class CustomerController {
 		cus.setSex(sex);
 		cus.setDate(date);
 		cus.setQualification(qualification);
-		cus.setQualification(qualification);
+		cus.setOccupation(occupation);
 		cus.setAddress(address);
 		cus.setEmail(email);
 		cus.setPassword(password);
 		cus.setBranchId(branchId);
-		
 		this.customerService.addCustomer(cus);
 		return cus;
 	}
