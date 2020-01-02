@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +23,7 @@ import com.dian.service.CustomerService;
  * @author Adiguno
  * 
  * NOTES:
- *	- using request params
+ *	- using request params (should be used for searching/filtering)
  * 
  * 
  * Questions:
@@ -32,7 +33,7 @@ import com.dian.service.CustomerService;
  * 		- rename to agent's controller?
  *
  * TODO: 
- *  -[x] persist customer with his information (using request param)
+ *  -[ ] persist customer with his information (using request body)
  *  	firstName, lastName, age, sex, date, qualification, occupation, address, 
  *  	email, password, branchId
  *  -[ ] fix date parameter
@@ -63,33 +64,39 @@ public class CustomerController {
 	}
 	
 	// TODO date
+//	@PostMapping("/add")
+//	public Customer addNew(@RequestParam(value="firstName") String firstName,
+//			@RequestParam(value="lastName") String lastName,
+//			@RequestParam(value="age") int age,
+//			@RequestParam(value="sex") String sex,
+//			@RequestParam(value="date", required=false) Date date,
+//			@RequestParam(value="qualification") String qualification,
+//			@RequestParam(value="occupation") String occupation,
+//			@RequestParam(value="address") String address,
+//			@RequestParam(value="email") String email,
+//			@RequestParam(value="password") String password,
+//			@RequestParam(value="branchId") long branchId) {
+//		Customer cus = new Customer();
+//		cus.setFirstName(firstName);
+//		cus.setLastName(lastName);
+//		cus.setAge(age);
+//		cus.setSex(sex);
+//		cus.setDate(date);
+//		cus.setQualification(qualification);
+//		cus.setOccupation(occupation);
+//		cus.setAddress(address);
+//		cus.setEmail(email);
+//		cus.setPassword(password);
+//		cus.setBranchId(branchId);
+//		this.customerService.addCustomer(cus);
+//		return cus;
+//	}
 	@PostMapping("/add")
-	public Customer addNew(@RequestParam(value="firstName") String firstName,
-			@RequestParam(value="lastName") String lastName,
-			@RequestParam(value="age") int age,
-			@RequestParam(value="sex") String sex,
-			@RequestParam(value="date", required=false) Date date,
-			@RequestParam(value="qualification") String qualification,
-			@RequestParam(value="occupation") String occupation,
-			@RequestParam(value="address") String address,
-			@RequestParam(value="email") String email,
-			@RequestParam(value="password") String password,
-			@RequestParam(value="branchId") long branchId) {
-		Customer cus = new Customer();
-		cus.setFirstName(firstName);
-		cus.setLastName(lastName);
-		cus.setAge(age);
-		cus.setSex(sex);
-		cus.setDate(date);
-		cus.setQualification(qualification);
-		cus.setOccupation(occupation);
-		cus.setAddress(address);
-		cus.setEmail(email);
-		cus.setPassword(password);
-		cus.setBranchId(branchId);
+	public Customer addNew(@RequestBody Customer cus) {
 		this.customerService.addCustomer(cus);
 		return cus;
 	}
+		
 	
 	@GetMapping("/all") 
 	public List<Customer> findAll() {
