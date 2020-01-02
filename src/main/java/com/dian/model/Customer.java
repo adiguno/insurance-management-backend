@@ -16,11 +16,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * @author guodi
  * 
  * NOTES:
  * 		- date is from java.sql;
+ * 		- date is one day behind;
  *	
  * TODO: 
  * 	-[ ] branch_id foreign key implementation
@@ -34,7 +37,7 @@ import javax.persistence.Table;
 public class Customer {
 	@Id
 	@Column(name="CUSTOMER_ID")
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
 	@Column(name="FIRST_NAME")
@@ -49,6 +52,7 @@ public class Customer {
 	@Column(name="SEX")
 	private String sex;
 	
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
 	@Column(name="DATE")
 	private Date date; // sql date
 	
