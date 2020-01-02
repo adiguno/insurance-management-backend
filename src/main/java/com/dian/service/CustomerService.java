@@ -22,8 +22,9 @@ import com.dian.repository.CustomerRepository;
 //		customer by last name
 //		customer by branch id
 // Update:
-//
+//		update customer with new customer
 // Delete:
+//		delete customer by id
 
 @Service
 public class CustomerService {
@@ -33,6 +34,15 @@ public class CustomerService {
 	@Autowired
 	public CustomerService(CustomerRepository customerRepository) {
 		this.customerRepository = customerRepository;
+	}
+	
+	public void deleteCustomer(long id) {
+		this.customerRepository.deleteById(id);
+	}
+	
+	public Customer updateCustomer(Customer cus) {
+		this.customerRepository.save(cus);
+		return cus;
 	}
 	
 	public Customer addCustomer(Customer cus) {
