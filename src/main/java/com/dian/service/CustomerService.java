@@ -29,7 +29,7 @@ import com.dian.repository.CustomerRepository;
 @Service
 public class CustomerService {
 	
-	public final CustomerRepository customerRepository;
+	private final CustomerRepository customerRepository;
 
 	@Autowired
 	public CustomerService(CustomerRepository customerRepository) {
