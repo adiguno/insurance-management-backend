@@ -1,5 +1,6 @@
 package com.dian.controller;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,8 @@ import com.dian.service.BranchService;
  * @author Adiguno
  * 
  * NOTES:
- *	- using request params
+ *	- using request body
+ *	- using Local Date
  * 
  * 
  * Questions:
@@ -26,12 +28,8 @@ import com.dian.service.BranchService;
  *  - what is the unique identifier (other than id), email and password? or username and password?
  *
  * TODO: 
- *  -[ ] fix date parameter
- *  	- options:
- *  		1. use today's date
- *  			- load in pre-existing records before startup (schema.sql ??)
- *  		2. pass in sql date in query param
- *  
+ *  -[x] fix date parameter
+ *  -[ ] add branch using request body
  *  -[x] retrieve all of the branches
  *  -[x] retrieve the list of branches with state
  *  -[x] retrieve the list of branches with id
@@ -55,7 +53,7 @@ public class BranchController {
 	// TODO date
 	@PostMapping("/add")
 	public Branch addNew(@RequestParam(value="branchName") String branchName,
-			@RequestParam(value="date", required=false) Date date,
+			@RequestParam(value="date", required=false) LocalDate date,
 			@RequestParam(value="phone") String phone,
 			@RequestParam(value="address") String address,
 			@RequestParam(value="location") String location,

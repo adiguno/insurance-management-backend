@@ -5,6 +5,7 @@ package com.dian.model;
 
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,8 +23,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  * @author guodi
  * 
  * NOTES:
- * 		- date is from java.sql;
- * 		- date is one day behind;
+ * 		- date is now using Local Date
  *	
  * TODO: 
  * 	-[ ] branch_id foreign key implementation
@@ -54,7 +54,7 @@ public class Customer {
 	
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
 	@Column(name="DATE")
-	private Date date; // sql date
+	private LocalDate date; // sql date
 	
 	@Column(name="QUALIFICATION")
 	private String qualification;
@@ -77,7 +77,7 @@ public class Customer {
 	private long branchId; // foreign key
 	
 	public Customer() {}
-	public Customer(String firstName, String lastName, int age, String sex, Date date, String qualification,
+	public Customer(String firstName, String lastName, int age, String sex, LocalDate date, String qualification,
 			String occupation, String address, String email, String password, long branchId) {
 		super();
 		this.firstName = firstName;
@@ -133,10 +133,10 @@ public class Customer {
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 	public String getQualification() {

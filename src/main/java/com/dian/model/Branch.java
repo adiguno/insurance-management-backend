@@ -1,6 +1,7 @@
 package com.dian.model;
 
-import java.sql.Date;
+//import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,7 +37,7 @@ public class Branch {
 	private String location;
 	
 	@Column(name="DATE")
-	private Date date;
+	private LocalDate date;
 	
 	@Column(name="CITY")
 	private String city;
@@ -47,7 +48,7 @@ public class Branch {
 	
 
 	public Branch() {}
-	public Branch(long branchId, String branchName, String address, String phone, String location, Date date,
+	public Branch(long branchId, String branchName, String address, String phone, String location, LocalDate date,
 			String city, String state) {
 		super();
 		this.branchId = branchId;
@@ -101,11 +102,11 @@ public class Branch {
 		this.location = location;
 	}
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 
