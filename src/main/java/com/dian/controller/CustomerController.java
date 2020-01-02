@@ -85,7 +85,7 @@ public class CustomerController {
 	}
 	
 	@GetMapping("/id")
-	public Optional<Customer> findById(@RequestParam(value="id") long id) {
+	public Customer findById(@RequestParam(value="id") long id) {
 		return this.customerService.getCustomerById(id);
 	}
 }

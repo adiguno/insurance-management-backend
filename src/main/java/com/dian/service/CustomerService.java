@@ -18,6 +18,7 @@ import com.dian.repository.CustomerRepository;
 // read:
 //		all customers
 //		customer by id
+//			returns a new empty customer if id is not found
 //		customer by last name
 //		customer by branch id
 // Update:
@@ -57,8 +58,8 @@ public class CustomerService {
 		return list;
 	}
 	
-	public Optional<Customer> getCustomerById(long id) {
-		return this.customerRepository.findById(id);
+	public Customer getCustomerById(long id) {
+		return this.customerRepository.findById(id).orElse(new Customer());
 	}
 	
 }
