@@ -4,8 +4,10 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,7 +38,7 @@ import com.dian.service.BranchService;
  *  	- using request param
  *  -[x] retrieve the list of branches with id
  *  
- *  -[ ] update
+ *  -[x] update
  *  -[ ] delete
  *  
  */
@@ -57,6 +59,24 @@ public class BranchController {
 	public Branch addNew(@RequestBody Branch branch) {
 		return this.branchService.addBranch(branch);
 	}	
+	
+	@PutMapping("/edit")
+	public Branch editById(@RequestParam(value="id") long id, @RequestBody Branch branch) {
+		Branch existing = this.branchService.getBranchById(id);
+		existing.setBranchName(branch.getBranchName());
+		existing.setAddress(branch.getAddress());
+		existing.setCity(branch.getCity());
+		existing.setState(branch.getState());
+		existing.setDate(branch.getDate());
+		existing.setPhone(branch.getPhone());
+		return this.branchService.updateBranch(existing);
+	}
+	
+	@DeleteMapping("/delete")
+	public void deleteById(@RequestParam(value="id") long id) {
+		this.branchService.deleteBranch(id);
+	}
+	
 	@GetMapping("/all") 
 	public List<Branch> findAll() {
 		return branchService.getAllBranchs();

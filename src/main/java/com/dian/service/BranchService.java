@@ -32,6 +32,14 @@ public class BranchService {
 		this.branchRepository = branchRepository;
 	}
 	
+	public Branch updateBranch(Branch branch) {
+		return this.branchRepository.save(branch);
+	}
+	
+	public void deleteBranch(long id) {
+		this.branchRepository.deleteById(id);
+	}
+	
 	public Branch addBranch(Branch branch) {
 		this.branchRepository.save(branch);
 		return branch;
