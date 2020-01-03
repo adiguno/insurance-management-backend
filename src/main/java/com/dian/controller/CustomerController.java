@@ -40,8 +40,10 @@ import com.dian.service.CustomerService;
  *  	firstName, lastName, age, sex, date, qualification, occupation, address, 
  *  	email, password, branchId
  *  -[x] fix date parameter
- *  -[ ] add new customer:
- *  		1. use today's date
+ *  - adding new customer:
+ *  	-[ ] automatically use today's date
+ *  	-[ ] redundancy check
+ *  
  *  -[ ] load in pre-existing records before app startup (schema.sql ??)
  *  
  *  -[x] retrieve all of the customers
@@ -88,8 +90,7 @@ public class CustomerController {
 
 	@PostMapping("/add")
 	public Customer addNew(@RequestBody Customer cus) {
-		this.customerService.addCustomer(cus);
-		return cus;
+		return this.customerService.addCustomer(cus);
 	}	
 	
 	@GetMapping("/all") 
