@@ -12,19 +12,20 @@ import com.dian.repository.BranchRepository;
 // dependency injection using constructor
 
 // CRUD
-// create customer
+// create branch
 // read:
-//		all customers
-//		customer by id
-//		customer by last name
-//		customer by branch id
+//		all branches
+//		branch by id
+//		branch by last name
+//		branch by branch id
+//			returns new empty branch if id is not found
 // update
 // delete
 
 @Service
 public class BranchService {
 	
-	public final BranchRepository branchRepository;
+	private final BranchRepository branchRepository;
 
 	@Autowired
 	public BranchService(BranchRepository branchRepository) {
@@ -47,8 +48,8 @@ public class BranchService {
 		return list;
 	}
 	
-	public Optional<Branch> getBranchById(long id) {
-		return this.branchRepository.findById(id);
+	public Branch getBranchById(long id) {
+		return this.branchRepository.findById(id).orElse(new Branch());
 	}
 	
 }

@@ -10,9 +10,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /*
+ * NOTES:
+ * 	- PHONE, is a string
+ * 
  * QUESTIONS:
- * 	- what's the difference between address and location
  *  - PHONE: string or number
  */
 
@@ -20,8 +24,8 @@ import javax.persistence.Table;
 @Table(name="BRANCH")
 public class Branch {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="BRANCH_ID")
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long branchId;
 	
 	@Column(name="BRANCH_NAME")
@@ -33,9 +37,7 @@ public class Branch {
 	@Column(name="PHONE")
 	private String phone;
 	
-	@Column(name="LOCATION")
-	private String location;
-	
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
 	@Column(name="DATE")
 	private LocalDate date;
 	
@@ -45,17 +47,15 @@ public class Branch {
 	@Column(name="STATE")
 	private String state;
 	
-	
 
 	public Branch() {}
-	public Branch(long branchId, String branchName, String address, String phone, String location, LocalDate date,
+	public Branch(long branchId, String branchName, String address, String phone, LocalDate date,
 			String city, String state) {
 		super();
 		this.branchId = branchId;
 		this.branchName = branchName;
 		this.address = address;
 		this.phone = phone;
-		this.location = location;
 		this.date = date;
 		this.city = city;
 		this.state = state;
@@ -94,14 +94,6 @@ public class Branch {
 		this.phone = phone;
 	}
 
-	public String getLocation() {
-		return location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
-	}
-
 	public LocalDate getDate() {
 		return date;
 	}
@@ -126,5 +118,10 @@ public class Branch {
 		this.state = state;
 	}
 	
+	@Override
+	public String toString() {
+		return "Branch [branchId=" + branchId + ", branchName=" + branchName + ", address=" + address + ", phone="
+				+ phone + ", date=" + date + ", city=" + city + ", state=" + state + "]";
+	}
 	
 }
