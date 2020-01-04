@@ -1,6 +1,5 @@
 package com.dian.model;
 
-//import java.sql.Date;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -15,9 +14,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /*
  * NOTES:
  * 	- PHONE, is a string
- * 
- * QUESTIONS:
- *  - PHONE: string or number
  */
 
 @Entity

@@ -69,7 +69,7 @@ public class CustomerService {
 	}
 	
 	public Customer getCustomerById(long id) {
-		return this.customerRepository.findById(id).orElse(new Customer());
+		return this.customerRepository.findById(id).get();
 	}
 	
 }

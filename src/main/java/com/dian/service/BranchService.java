@@ -10,7 +10,7 @@ import com.dian.repository.BranchRepository;
 
 // used mainly for testing purposes
 // dependency injection using constructor
-
+//
 // CRUD
 // create branch
 // read:
@@ -18,7 +18,7 @@ import com.dian.repository.BranchRepository;
 //		branch by id
 //		branch by last name
 //		branch by branch id
-//			returns new empty branch if id is not found
+//			exception if id is not found
 // update
 // delete by id
 
@@ -41,8 +41,7 @@ public class BranchService {
 	}
 	
 	public Branch addBranch(Branch branch) {
-		this.branchRepository.save(branch);
-		return branch;
+		return this.branchRepository.save(branch);
 	}
 
 	public List<Branch> getAllBranchs() {
@@ -57,7 +56,7 @@ public class BranchService {
 	}
 	
 	public Branch getBranchById(long id) {
-		return this.branchRepository.findById(id).orElse(new Branch());
+		return this.branchRepository.findById(id).get();
 	}
 	
 }

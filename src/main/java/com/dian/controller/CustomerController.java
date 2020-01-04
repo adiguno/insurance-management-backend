@@ -5,6 +5,10 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,33 +30,17 @@ import com.dian.service.CustomerService;
  * 
  * NOTES:
  *	- using request params (should be used for searching/filtering)
+ *	- use username as the unique check
+ * 	- agents and branch managers have access to customer's information
  * 
  * 
  * Questions:
  * 	- why do we need passwords
  * 		- no need for storing passwords in the customer table
  *  - what is the unique identifier (other than id), email and password? or username and password?
- * 	- only agents should have access to this controller ?
- * 		- rename to agent's controller?
+ *  	- using username as unique id
+ *  
  *
- * TODO: 
- *  -[x] persist customer with his information (using request body)
- *  	firstName, lastName, age, sex, date, qualification, occupation, address, 
- *  	email, password, branchId
- *  -[x] fix date parameter
- *  - adding new customer:
- *  	-[ ] automatically use today's date
- *  	-[ ] redundancy check
- *  
- *  -[ ] load in pre-existing records before app startup (schema.sql ??)
- *  
- *  -[x] retrieve all of the customers
- *  -[x] retrieve the list of customers with branch id
- *  -[x] retrieve the list of customers with last name
- *  -[x] get customer by id 
- *  -[x] update customer with all fields
- *  -[x] delete customer by id
- *  
  */
 
 @RestController
@@ -61,6 +49,9 @@ public class CustomerController {
 	
 	private CustomerService customerService;
 	
+    private static final Logger logger = LogManager.getLogger(CustomerController.class);
+
+	
 	@Autowired
 	public CustomerController(CustomerService customerService) {
 		this.customerService = customerService;
@@ -68,11 +59,13 @@ public class CustomerController {
 	
 	@DeleteMapping("/delete")
 	public void deleteById(@RequestParam(value="id") long id) {
+		logger.debug("delete customer, id = " + id);
 		this.customerService.deleteCustomer(id);
 	}
 	
 	@PutMapping("/edit")
 	public Customer editById(@RequestParam(value="id") long id, @RequestBody Customer cus) {
+		logger.debug("update customer, id = " + id);
 		Customer existing =  this.customerService.getCustomerById(id);
 		existing.setAddress(cus.getAddress());
 		existing.setAge(cus.getAge());
@@ -100,16 +93,19 @@ public class CustomerController {
 	
 	@GetMapping("/branch")
 	public List<Customer> findByBranchId(@RequestParam(value="branchId") long branchId) {
+		logger.debug("get customer, by branchId = " + branchId);
 		return this.customerService.getCustomersByBranchId(branchId);
 	}
 	
 	@GetMapping("/lastname")
 	public List<Customer> findByLastName(@RequestParam(value="lastName") String lastName) {
+		logger.debug("get customer, by lastName = " + lastName);
 		return this.customerService.getCustomerByLastName(lastName);
 	}
 	
 	@GetMapping("/id")
 	public Customer findById(@RequestParam(value="id") long id) {
+		logger.debug("get customer, by id = " + id);
 		return this.customerService.getCustomerById(id);
 	}
 }

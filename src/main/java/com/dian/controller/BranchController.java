@@ -3,6 +3,9 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,6 +48,9 @@ public class BranchController {
 	
 	private BranchService branchService;
 	
+    private static final Logger logger = LogManager.getLogger(BranchController.class);
+
+	
 	@Autowired
 	public BranchController(BranchService branchService) {
 		this.branchService = branchService;
@@ -58,6 +64,7 @@ public class BranchController {
 	
 	@PutMapping("/edit")
 	public Branch editById(@RequestParam(value="id") long id, @RequestBody Branch branch) {
+		logger.debug("update branch, id = " + id);
 		Branch existing = this.branchService.getBranchById(id);
 		existing.setBranchName(branch.getBranchName());
 		existing.setAddress(branch.getAddress());
@@ -70,6 +77,7 @@ public class BranchController {
 	
 	@DeleteMapping("/delete")
 	public void deleteById(@RequestParam(value="id") long id) {
+		logger.debug("delete branch, id = " + id);
 		this.branchService.deleteBranch(id);
 	}
 	
@@ -80,12 +88,14 @@ public class BranchController {
 	
 	@GetMapping("/state")
 	public List<Branch> findByState(@RequestParam(value="state") String state) {
+		logger.debug("get branch, by state = " + state);
 		return this.branchService.getBranchsByState(state);
 		
 	}
 	
 	@GetMapping("/id")
 	public Branch findById(@RequestParam(value="id") long id) {
+		logger.debug("get branch, by id = " + id);
 		return this.branchService.getBranchById(id);
 	}
 }
