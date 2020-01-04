@@ -4,7 +4,7 @@
 package com.dian.model;
 
 
-import java.sql.Date;
+//import java.sql.Date;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -17,7 +17,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * @author guodi
@@ -68,17 +72,18 @@ public class Customer {
 	@Column(name="EMAIL")
 	private String email;
 	
-	@Column(name="PASSWORD")
-	private String password;
 	
-//	// @Column(name="BRANCH_ID")
-//	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-//	@JoinColumn(name = "BRANCH_ID", nullable=false)
-	private long branchId; // foreign key
+//	@Column(name="BRANCH_ID")
+//	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "BRANCH_ID", nullable=false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+//	@JsonIgnore
+	private Branch branch; // foreign key
 	
 	public Customer() {}
 	public Customer(String firstName, String lastName, int age, String sex, LocalDate date, String qualification,
-			String occupation, String address, String email, String password, long branchId) {
+			String occupation, String address, String email) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -89,8 +94,6 @@ public class Customer {
 		this.occupation = occupation;
 		this.address = address;
 		this.email = email;
-		this.password = password;
-		this.branchId = branchId;
 	}
 
 
@@ -98,7 +101,7 @@ public class Customer {
 	public String toString() {
 		return "Customer [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + ", sex="
 				+ sex + ", date=" + date + ", qualification=" + qualification + ", occupation=" + occupation
-				+ ", address=" + address + ", email=" + email + ", password=" + password + ", branchId=" + branchId
+				+ ", address=" + address + ", email=" + email 
 				+ "]";
 	}
 
@@ -163,19 +166,12 @@ public class Customer {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getPassword() {
-		return password;
+	public Branch getBranch() {
+		return branch;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+	public void setBranch(Branch branch) {
+		this.branch = branch;
 	}
-	public long getBranchId() {
-		return branchId;
-	}
-	public void setBranchId(long branchId) {
-		this.branchId = branchId;
-	}
-	
 	
 	
 }

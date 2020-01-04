@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dian.model.Branch;
 import com.dian.model.Customer;
+import com.dian.service.BranchService;
 import com.dian.service.CustomerService;
 
 
@@ -48,13 +50,16 @@ import com.dian.service.CustomerService;
 public class CustomerController {
 	
 	private CustomerService customerService;
+	private BranchService branchService;
 	
     private static final Logger logger = LogManager.getLogger(CustomerController.class);
 
 	
 	@Autowired
-	public CustomerController(CustomerService customerService) {
+	public CustomerController(CustomerService customerService, BranchService branchService) {
 		this.customerService = customerService;
+		this.branchService = branchService;
+		
 	}
 	
 	@DeleteMapping("/delete")
@@ -69,20 +74,21 @@ public class CustomerController {
 		Customer existing =  this.customerService.getCustomerById(id);
 		existing.setAddress(cus.getAddress());
 		existing.setAge(cus.getAge());
-		existing.setBranchId(cus.getBranchId());
 		existing.setDate(cus.getDate());
 		existing.setEmail(cus.getEmail());
 		existing.setFirstName(cus.getFirstName());
 		existing.setLastName(cus.getLastName());
 		existing.setOccupation(cus.getOccupation());
-		existing.setPassword(cus.getPassword());
 		existing.setSex(cus.getSex());
 		existing.setQualification(cus.getQualification());
 		return this.customerService.updateCustomer(existing);
 	}
 
 	@PostMapping("/add")
-	public Customer addNew(@RequestBody Customer cus) {
+	public Customer addNew(@RequestBody Customer cus, @RequestParam(value="branchId") long branchId) {
+		logger.debug("add customer, branchId = " + branchId);
+		Branch branch =  this.branchService.getBranchById(branchId);
+		cus.setBranch(branch);
 		return this.customerService.addCustomer(cus);
 	}	
 	
@@ -91,11 +97,11 @@ public class CustomerController {
 		return this.customerService.getAllCustomers();
 	}
 	
-	@GetMapping("/branch")
-	public List<Customer> findByBranchId(@RequestParam(value="branchId") long branchId) {
-		logger.debug("get customer, by branchId = " + branchId);
-		return this.customerService.getCustomersByBranchId(branchId);
-	}
+//	@GetMapping("/branch")
+//	public List<Customer> findByBranchId(@RequestParam(value="branchId") long branchId) {
+//		logger.debug("get customer, by branchId = " + branchId);
+//		return this.customerService.getCustomersByBranchId(branchId);
+//	}
 	
 	@GetMapping("/lastname")
 	public List<Customer> findByLastName(@RequestParam(value="lastName") String lastName) {

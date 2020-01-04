@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dian.model.Customer;
+import com.dian.repository.BranchRepository;
 import com.dian.repository.CustomerRepository;
 
 // NOTES:
@@ -32,10 +33,12 @@ import com.dian.repository.CustomerRepository;
 public class CustomerService {
 	
 	private final CustomerRepository customerRepository;
+	private final BranchRepository branchRepository;
 
 	@Autowired
-	public CustomerService(CustomerRepository customerRepository) {
+	public CustomerService(CustomerRepository customerRepository, BranchRepository branchRepository) {
 		this.customerRepository = customerRepository;
+		this.branchRepository = branchRepository;
 	}
 	
 	public void deleteCustomer(long id) {
@@ -54,12 +57,12 @@ public class CustomerService {
 		return (List<Customer>)this.customerRepository.findAll();
 	}
 	
-	public List<Customer> getCustomersByBranchId(long branchId) {
-		List<Customer> list = new ArrayList<>();
-		Iterable<Customer> cusIterable = this.customerRepository.findByBranchId(branchId);
-		cusIterable.forEach(list::add);
-		return list;
-	}
+//	public List<Customer> getCustomersByBranchId(long branchId) {
+//		List<Customer> list = new ArrayList<>();
+//		Iterable<Customer> cusIterable = this.branchRepository.findById(branchId);
+//		cusIterable.forEach(list::add);
+//		return list;
+//	}
 	
 	public List<Customer> getCustomerByLastName(String lastName) {
 		List<Customer> list = new ArrayList<>();
