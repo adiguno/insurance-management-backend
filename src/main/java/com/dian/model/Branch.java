@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Branch {
 	@Id
 	@Column(name="BRANCH_ID")
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long branchId;
 	
 	@Column(name="BRANCH_NAME")
