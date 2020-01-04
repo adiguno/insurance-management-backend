@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 import com.dian.model.Customer;
 import com.dian.repository.CustomerRepository;
 
-// used mainly for testing purposes
-// dependency injection using constructor
-
+// NOTES:
+// 	used mainly for testing purposes
+// 	dependency injection using constructor
+//	could use optionals to help check if the records exists before modifying
+//
 // CRUD
 // create customer
 // read:
@@ -41,13 +43,11 @@ public class CustomerService {
 	}
 	
 	public Customer updateCustomer(Customer cus) {
-		this.customerRepository.save(cus);
-		return cus;
+		return this.customerRepository.save(cus);
 	}
 	
 	public Customer addCustomer(Customer cus) {
-		this.customerRepository.save(cus);
-		return cus;
+		return this.customerRepository.save(cus);
 	}
 
 	public List<Customer> getAllCustomers() {

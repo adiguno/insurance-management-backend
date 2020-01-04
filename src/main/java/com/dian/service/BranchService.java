@@ -20,7 +20,7 @@ import com.dian.repository.BranchRepository;
 //		branch by branch id
 //			returns new empty branch if id is not found
 // update
-// delete
+// delete by id
 
 @Service
 public class BranchService {

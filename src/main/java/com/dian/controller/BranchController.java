@@ -25,10 +25,6 @@ import com.dian.service.BranchService;
  *	- using request body
  *	- using Local Date
  * 
- * 
- * Questions:
- * 	- why do we need address and location
- *  - what is the unique identifier (other than id), email and password? or username and password?
  *
  * TODO: 
  *  -[x] fix date parameter
@@ -39,7 +35,7 @@ import com.dian.service.BranchService;
  *  -[x] retrieve the list of branches with id
  *  
  *  -[x] update
- *  -[ ] delete
+ *  -[x] delete by id
  *  
  */
 
