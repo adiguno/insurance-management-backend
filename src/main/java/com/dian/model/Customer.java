@@ -28,12 +28,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * 
  * NOTES:
  * 		- date is now using Local Date
- *	
- * TODO: 
- * 	-[ ] branch_id foreign key implementation
- * 		- [x] many to one (many customers to one branch)
- * 		- [ ] many to many
- * 
+ *		- BRANCH_ID foreign key, ManyToOne unidirectional implementation
  */
 
 @Entity
@@ -72,9 +67,6 @@ public class Customer {
 	@Column(name="EMAIL")
 	private String email;
 	
-	
-//	@Column(name="BRANCH_ID")
-//	@ManyToOne
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "BRANCH_ID", nullable=false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
@@ -101,7 +93,7 @@ public class Customer {
 	public String toString() {
 		return "Customer [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + ", sex="
 				+ sex + ", date=" + date + ", qualification=" + qualification + ", occupation=" + occupation
-				+ ", address=" + address + ", email=" + email 
+				+ ", address=" + address + ", email=" + email + ", branch =" + branch.toString()
 				+ "]";
 	}
 
