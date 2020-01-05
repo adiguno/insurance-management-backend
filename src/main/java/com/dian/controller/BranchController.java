@@ -27,18 +27,8 @@ import com.dian.service.BranchService;
  * NOTES:
  *	- using request body
  *	- using Local Date
- * 
+ *  - only CEO/Admin can edit
  *
- * TODO: 
- *  -[x] fix date parameter
- *  -[x] add branch using request body
- *  -[x] retrieve all of the branches
- *  -[x] retrieve the list of branches with state
- *  	- using request param
- *  -[x] retrieve the list of branches with id
- *  
- *  -[x] update
- *  -[x] delete by id
  *  
  */
 
