@@ -6,3 +6,8 @@ use a_enterprise_project;
 select * from customer;
 
 select * from branch;
+
+select * from user; 	 
+select * from role;
+select * from user_role;
+

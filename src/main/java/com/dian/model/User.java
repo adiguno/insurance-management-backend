@@ -1,19 +1,28 @@
 package com.dian.model;
 
-import java.util.Set;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * User class
  * @author guodi
  * used to log in
  * TODO: missing role's definition, get/set, toString()
+ * - many users to many roles
+ * - password is not ignore for testing
  */
 
 @Entity
@@ -28,12 +37,25 @@ public class User {
 	private String username;
 	
 	@Column(name="PASSWORD")
+//	@JsonIgnore
 	private String password;
 	
 //	user's set of roles
-//	private Set<Role> role;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "ROLE_ID", referencedColumnName = "ROLE_ID"))
+	private List<Role> roles;
+    
 	
-	
+	public User() {}
+	public User(String username, String password, Role roles) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.roles = Arrays.asList(roles);
+	}
+
+
 	public String getUsername() {
 		return username;
 	}
@@ -52,6 +74,13 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 	
 	@Override
 	public String toString() {

@@ -3,7 +3,25 @@ TODO:
 	   	-[x] request parameters logged at INFO/DEBUG level
 	   	-[ ] any errors at the ERROR level
 	   		- get requests with invalid id
-	-[ ] load in pre-existing records before app startup (schema.sql ??)
+	-[x] load in pre-existing records before app startup (schema.sql ??)
+	
+	-[ ] implement security checks
+	
+	User:
+	UserController 
+	UserService
+		-[ ] add new users with different roles 
+			-[ ] admin adding bm
+			-[ ] admin adding agents
+			-[ ] admin adding customers
+			-[ ] bm adding agents
+			-[ ] bm adding customers
+		-[ ] securities associated with adding new users
+			-[ ] admin adding bm
+			-[ ] admin adding agents
+			-[ ] admin adding customers
+			-[ ] bm adding agents
+			-[ ] bm adding customers
 	
 	Customer
 	   	-[ ] adding new customer:
