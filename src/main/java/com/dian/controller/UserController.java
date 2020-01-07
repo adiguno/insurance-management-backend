@@ -18,7 +18,6 @@ import java.util.List;
 /** 
  * NOTES
  * 		when new users sign up
- * 		default security role is ROLE_CSR, in customer service
  * 
  * 		new sign up method for every role
  * 			- signing up bm

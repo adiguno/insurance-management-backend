@@ -84,24 +84,46 @@ public class UserService {
     	logger.debug("New bm user attempting to sign up");
         Optional<User> user = Optional.empty();
         if (!userRepository.findByUsername(username).isPresent()) {
-            Optional<Role> role = roleRepository.findByRoleName("ROLE_BM");
-            user = Optional.of(userRepository.save(new User(username,
-                            passwordEncoder.encode(password),
-                            role.get())));
+        	Optional<Role> role1 = roleRepository.findByRoleName("ROLE_BM");
+        	Optional<Role> role2 = roleRepository.findByRoleName("ROLE_CSR");
+        	Optional<Role> role3 = roleRepository.findByRoleName("ROLE_C");
+            List<Role> roles = new ArrayList<>();
+            if(role1.isPresent() && role2.isPresent() && role3.isPresent()) {
+            	roles.add(role1.get());
+            	roles.add(role2.get());
+            	roles.add(role3.get());
+            }
+            user = Optional.of(userRepository.save(
+            		new User(
+            				username, 
+            				passwordEncoder.encode(password),
+            				roles)));
+        } else {
+        	logger.debug("user already exists");
         }
         return user;
     }
+    // agent sign up
     public Optional<User> signupAgent(String username, String password) {
     	logger.debug("New agent user attempting to sign up");
         Optional<User> user = Optional.empty();
         if (!userRepository.findByUsername(username).isPresent()) {
-            Optional<Role> role = roleRepository.findByRoleName("ROLE_CSR");
+            Optional<Role> role2 = roleRepository.findByRoleName("ROLE_CSR");
+        	Optional<Role> role3 = roleRepository.findByRoleName("ROLE_C");
+        	List<Role> roles = new ArrayList<>();
+            if(role2.isPresent() && role3.isPresent()) {
+            	roles.add(role2.get());
+            	roles.add(role3.get());
+            }
             user = Optional.of(userRepository.save(new User(username,
                             passwordEncoder.encode(password),
-                            role.get())));
+                            roles)));
+        } else {
+        	logger.debug("user already exists");
         }
         return user;
     }
+    // customer sign up
     public Optional<User> signupCustomer(String username, String password) {
     	logger.debug("New customer user attempting to sign up");
         Optional<User> user = Optional.empty();
@@ -110,6 +132,8 @@ public class UserService {
             user = Optional.of(userRepository.save(new User(username,
                             passwordEncoder.encode(password),
                             role.get())));
+        } else {
+        	logger.debug("user already exists");
         }
         return user;
     }

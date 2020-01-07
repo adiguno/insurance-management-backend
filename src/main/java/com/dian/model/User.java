@@ -54,6 +54,12 @@ public class User {
 		this.password = password;
 		this.roles = Arrays.asList(roles);
 	}
+	public User(String username, String password, List<Role> roles) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.roles = roles;
+	}
 
 
 	public String getUsername() {
