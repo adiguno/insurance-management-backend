@@ -29,6 +29,7 @@ import java.util.List;
  */
 
 @RestController
+@CrossOrigin(origins="http://localhost:4200", maxAge = 3600) // max age = 30 min
 @RequestMapping("/users")
 public class UserController {
     private static final Logger logger = LogManager.getLogger(CustomerController.class);
@@ -36,10 +37,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+
     @PostMapping("/signin")
     public String login(@RequestBody @Valid LoginDto loginDto) {
     	logger.debug("signing in: " + loginDto.getUsername());
     	logger.debug("password: " + loginDto.getPassword());
+//    	logger.debug(userService.signin(loginDto.getUsername(), loginDto.getPassword()).orElseThrow(()->
+//        	new HttpServerErrorException(HttpStatus.FORBIDDEN, "Login Failed")));
     	return userService.signin(loginDto.getUsername(), loginDto.getPassword()).orElseThrow(()->
                new HttpServerErrorException(HttpStatus.FORBIDDEN, "Login Failed"));
     }
