@@ -6,17 +6,25 @@ TODO:
 	-[x] load in pre-existing records before app startup (schema.sql ??)
 	
 	-[ ] implement security checks
+		-[x] Branch Controller
+	
+	Policy Controller:
+		-[ ] controller integration test
+		-[x] create
+		-[x] read
+		-[x] update
+		-[x] delete
 	
 	User:
 	UserController 
 	UserService
-		-[ ] add new users with different roles 
+		-[X] add new users with different roles 
 			-[ ] admin adding bm
 			-[ ] admin adding agents
 			-[ ] admin adding customers
 			-[ ] bm adding agents
 			-[ ] bm adding customers
-		-[ ] securities associated with adding new users
+		-[X] securities associated with adding new users
 			-[ ] admin adding bm
 			-[ ] admin adding agents
 			-[ ] admin adding customers
@@ -24,6 +32,7 @@ TODO:
 			-[ ] bm adding customers
 	
 	Customer
+		-[ ] test new REST controller
 	   	-[ ] adding new customer:
 	   		-[ ] automatically use today's date
 	   		-[ ] redundancy check
