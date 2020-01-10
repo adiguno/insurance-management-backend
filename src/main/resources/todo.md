@@ -10,6 +10,7 @@ TODO:
 	
 	Policy Controller:
 		-[ ] controller integration test
+		-[ ] sql scripts
 		-[x] create
 		-[x] read
 		-[x] update
@@ -24,7 +25,7 @@ TODO:
 			-[ ] admin adding customers
 			-[ ] bm adding agents
 			-[ ] bm adding customers
-		-[X] securities associated with adding new users
+		-[ ] securities associated with adding new users
 			-[ ] admin adding bm
 			-[ ] admin adding agents
 			-[ ] admin adding customers
