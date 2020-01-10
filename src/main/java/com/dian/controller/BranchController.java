@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+
 import com.dian.model.Branch;
 import com.dian.service.BranchService;
 
@@ -46,13 +48,14 @@ public class BranchController {
 		this.branchService = branchService;
 	}
 	
-
 	@PostMapping("/add")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public Branch addNew(@RequestBody Branch branch) {
 		return this.branchService.addBranch(branch);
 	}	
 	
 	@PutMapping("/edit")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public Branch editById(@RequestParam(value="id") long id, @RequestBody Branch branch) {
 		logger.debug("update branch, id = " + id);
 		Branch existing = this.branchService.getBranchById(id);
@@ -65,7 +68,8 @@ public class BranchController {
 		return this.branchService.updateBranch(existing);
 	}
 	
-	@DeleteMapping("/delete")
+    @DeleteMapping("/delete")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void deleteById(@RequestParam(value="id") long id) {
 		logger.debug("delete branch, id = " + id);
 		this.branchService.deleteBranch(id);
