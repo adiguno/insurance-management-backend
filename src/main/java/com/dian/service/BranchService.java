@@ -3,6 +3,9 @@ package com.dian.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.dian.model.Branch;
@@ -26,22 +29,29 @@ import com.dian.repository.BranchRepository;
 public class BranchService {
 	
 	private final BranchRepository branchRepository;
+    private static final Logger logger = LogManager.getLogger(BranchService.class);
 
 	@Autowired
 	public BranchService(BranchRepository branchRepository) {
 		this.branchRepository = branchRepository;
 	}
 	
-	public Branch updateBranch(Branch branch) {
-		return this.branchRepository.save(branch);
-	}
-	
-	public void deleteBranch(long id) {
-		this.branchRepository.deleteById(id);
-	}
-	
+	// add branch
 	public Branch addBranch(Branch branch) {
 		return this.branchRepository.save(branch);
+	}
+	
+	// update branch
+	public Branch updateBranch(Branch branch) {
+		if (!this.branchRepository.findById(branch.getBranchId()).isPresent()) {
+			logger.debug("creating new branch inside update method");
+		}
+		return this.branchRepository.save(branch);
+	}
+	
+	// delete branch
+	public void deleteBranch(long id) {
+		this.branchRepository.deleteById(id);
 	}
 
 	public List<Branch> getAllBranchs() {
