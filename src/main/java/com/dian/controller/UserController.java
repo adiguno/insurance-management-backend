@@ -2,6 +2,7 @@ package com.dian.controller;
 
 import com.dian.dto.LoginDto;
 import com.dian.model.User;
+import com.dian.security.JwtProvider;
 import com.dian.service.UserService;
 
 import org.apache.logging.log4j.LogManager;
@@ -9,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpServerErrorException;
 
@@ -36,10 +38,20 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
-
+    
+    // returns the role, associated with the token
+    @Autowired
+    private JwtProvider jwtProvider;
+    @PostMapping("/login")
+    public List<GrantedAuthority> login(@RequestBody String token) {
+    	logger.debug("grabbing roles for token: "+ token);
+    	List<GrantedAuthority> roles = this.jwtProvider.getRoles(token);
+    	return roles;
+    }
+    
+    // returns token string only
     @PostMapping("/signin")
-    public String login(@RequestBody @Valid LoginDto loginDto) {
+    public String signin(@RequestBody @Valid LoginDto loginDto) {
     	logger.debug("signing in: " + loginDto.getUsername());
     	logger.debug("password: " + loginDto.getPassword());
 //    	logger.debug(userService.signin(loginDto.getUsername(), loginDto.getPassword()).orElseThrow(()->
