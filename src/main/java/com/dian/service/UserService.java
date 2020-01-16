@@ -68,7 +68,7 @@ public class UserService {
             	logger.debug("Log in failed for password: {}", password);
             }
         }
-        return token;
+        return token; // return optional token string
     }
 
     /**
