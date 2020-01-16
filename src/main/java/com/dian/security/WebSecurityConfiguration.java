@@ -44,9 +44,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         	.and()
         .authorizeRequests()
 //                .antMatchers("/packages/**").permitAll()
-//                .antMatchers("/tours/**").permitAll()	// todo
+                .antMatchers("/api/branch/all").permitAll()	// todo
 //                .antMatchers("/ratings/**").hasRole("ADMIN") // TODO
                 .antMatchers("/users/signin").permitAll()
+                .antMatchers("/users/login").permitAll()
                 // Disallow unauthenticated entry to everything else..
                 .anyRequest().authenticated();
 
