@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,6 +36,7 @@ import com.dian.service.BranchService;
  */
 
 @RestController
+@CrossOrigin(origins="http://localhost:4200", maxAge = 3600) // max age = 30 min
 @RequestMapping("/api/branch")
 public class BranchController {
 	
@@ -75,6 +77,7 @@ public class BranchController {
 		this.branchService.deleteBranch(id);
 	}
 	
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/all") 
 	public List<Branch> findAll() {
 		return branchService.getAllBranchs();
