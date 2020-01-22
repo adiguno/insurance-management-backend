@@ -1,10 +1,5 @@
-/**
- * 
- */
 package com.dian.model;
 
-
-//import java.sql.Date;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -20,23 +15,13 @@ import javax.persistence.Table;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
-/**
- * @author guodi
- * 
- * NOTES:
- * 		- date is now using Local Date
- *		- BRANCH_ID foreign key, ManyToOne unidirectional implementation
- */
-//@JsonAutoDetect
 @Entity
-@Table(name="CUSTOMER")
-public class Customer {
+@Table(name="MANAGER")
+public class Manager {
 	@Id
-	@Column(name="CUSTOMER_ID")
+	@Column(name="MANAGER_ID")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
@@ -54,144 +39,126 @@ public class Customer {
 	
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
 	@Column(name="DATE")
-	private LocalDate date; 
+	private LocalDate date;
 	
 	@Column(name="QUALIFICATION")
 	private String qualification;
 	
-	@Column(name="OCCUPATION")
-	private String occupation;
-	
 	@Column(name="ADDRESS")
 	private String address;
 	
-	@Column(name="EMAIL")
-	private String email;
+	@ManyToOne(fetch = FetchType.LAZY) // , optional = false
+	@JoinColumn(name = "BRANCH_ID", nullable=false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private Branch branch; // foreign key
 	
 	@Column(name="USERNAME")
 	private String username;
 	
 	@Column(name="PASSWORD")
 	private String password;
-	
-	
-//	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY) // , optional = false
-	@JoinColumn(name = "BRANCH_ID", nullable=false)
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	private Branch branch; // foreign key
-//	public long branchId;
-	
-	public Customer() {}
-	public Customer(String firstName, String lastName, int age, String sex, LocalDate date, String qualification,
-			String occupation, String address, String email, String username, String password) {
+
+	public Manager() {}
+	public Manager(long id, String firstName, String lastName, int age, String sex, LocalDate date,
+			String qualification, String address, Branch branch, String username, String password) {
 		super();
+		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.age = age;
 		this.sex = sex;
 		this.date = date;
 		this.qualification = qualification;
-		this.occupation = occupation;
 		this.address = address;
-		this.email = email;
+//		this.branch = branch;
 		this.username = username;
-//		this.password = password;
-	}
-
-
-	@Override
-	public String toString() {
-		return "Customer [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + ", sex="
-				+ sex + ", date=" + date + ", qualification=" + qualification + ", occupation=" + occupation
-				+ ", address=" + address + ", email=" + email + ", username=" + username + "]"; // ", branch=" + branch + 
-	}
-	
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
 		this.password = password;
 	}
+
+
 	public String getUsername() {
 		return username;
 	}
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	public long getId() {
 		return id;
 	}
+
 	public void setId(long id) {
 		this.id = id;
 	}
+
 	public String getFirstName() {
 		return firstName;
 	}
+
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
+
 	public String getLastName() {
 		return lastName;
 	}
+
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
 	public int getAge() {
 		return age;
 	}
+
 	public void setAge(int age) {
 		this.age = age;
 	}
+
 	public String getSex() {
 		return sex;
 	}
+
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
+
 	public LocalDate getDate() {
 		return date;
 	}
+
 	public void setDate(LocalDate date) {
 		this.date = date;
 	}
+
 	public String getQualification() {
 		return qualification;
 	}
+
 	public void setQualification(String qualification) {
 		this.qualification = qualification;
 	}
-	public String getOccupation() {
-		return occupation;
-	}
-	public void setOccupation(String occupation) {
-		this.occupation = occupation;
-	}
+
 	public String getAddress() {
 		return address;
 	}
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
+
 	public Branch getBranch() {
 		return branch;
 	}
+
 	public void setBranch(Branch branch) {
 		this.branch = branch;
 	}
-//	public long getBranchId() {
-//		return branchId;
-//	}
-//	public void setBranchId(long branchId) {
-//		this.branchId = branchId;
-//	}
-	
 	
 	
 }

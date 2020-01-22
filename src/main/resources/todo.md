@@ -1,5 +1,11 @@
 TODO: 
-	-[ ] implement log4j2 logger
+	- [x] spring's java mail
+	- [x] update customer class with username
+		- [x] model: updated getters/setters, constructors, toString()
+		- [x] repo: added signature get by username
+		- [x] service: added method to get by username
+		- [x] controller: added mapping to get by username
+	- [ ] implement log4j2 logger
 	   	-[x] request parameters logged at INFO/DEBUG level
 	   	-[ ] any errors at the ERROR level
 	   		- get requests with invalid id
@@ -7,7 +13,24 @@ TODO:
 	
 	-[ ] implement security checks
 		-[x] Branch Controller
+
+	Customer registration controller
+		- [x] model
+		- [x] repo, currently have findByAgent
+		- [ ] service
+		- [ ]
+
+	Agent Controller:
+		- [ ] authorization
+		- [x] model
+		- [x] repo
+		- [x] service
+		- [x] controller
 	
+	BM Controller:
+		- [ ] authorization
+		- [x] everything else
+		
 	Policy Controller:
 		-[ ] controller integration test
 		-[ ] sql scripts
@@ -19,7 +42,7 @@ TODO:
 	User:
 	UserController 
 	UserService
-		-[X] add new users with different roles 
+		- [X] add new users with different roles 
 			-[ ] admin adding bm
 			-[ ] admin adding agents
 			-[ ] admin adding customers
@@ -33,6 +56,7 @@ TODO:
 			-[ ] bm adding customers
 	
 	Customer
+		- [ ] authorization
 		-[ ] test new REST controller
 	   	-[ ] adding new customer:
 	   		-[ ] automatically use today's date

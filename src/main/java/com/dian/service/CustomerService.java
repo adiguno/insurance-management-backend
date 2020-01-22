@@ -33,12 +33,10 @@ import com.dian.repository.CustomerRepository;
 public class CustomerService {
 	
 	private final CustomerRepository customerRepository;
-	private final BranchRepository branchRepository;
 
 	@Autowired
-	public CustomerService(CustomerRepository customerRepository, BranchRepository branchRepository) {
+	public CustomerService(CustomerRepository customerRepository) {
 		this.customerRepository = customerRepository;
-		this.branchRepository = branchRepository;
 	}
 	
 	public void deleteCustomer(long id) {
@@ -49,17 +47,22 @@ public class CustomerService {
 		return this.customerRepository.save(cus);
 	}
 	
+	// add
 	public Customer addCustomer(Customer cus) {
 		return this.customerRepository.save(cus);
 	}
 
+	// get all
 	public List<Customer> getAllCustomers() {
 		return (List<Customer>)this.customerRepository.findAll();
 	}
-	
-//	public List<Customer> getCustomersByBranchId(long branchId) {
+	// get with username
+	public Customer getCustomerByUsername(String username) {
+		return this.customerRepository.findByUsername(username);
+	}	
+//	public List<Customer> getCustomersByUsername(String username) {
 //		List<Customer> list = new ArrayList<>();
-//		Iterable<Customer> cusIterable = this.branchRepository.findById(branchId);
+//		Iterable<Customer> cusIterable = this.customerRepository.findByUsername(username);
 //		cusIterable.forEach(list::add);
 //		return list;
 //	}

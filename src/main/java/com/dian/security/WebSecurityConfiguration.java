@@ -45,7 +45,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         .authorizeRequests()
 //                .antMatchers("/packages/**").permitAll()
                 .antMatchers("/api/branch/all").permitAll()	// todo
-//                .antMatchers("/ratings/**").hasRole("ADMIN") // TODO
+//                .antMatchers("/ratings/**").hasRole("ADMIN") // TODO policies
                 .antMatchers("/users/signin").permitAll()
                 .antMatchers("/users/login").permitAll()
                 // Disallow unauthenticated entry to everything else..

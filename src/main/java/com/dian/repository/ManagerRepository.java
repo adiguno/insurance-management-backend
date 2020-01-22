@@ -3,10 +3,10 @@ package com.dian.repository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.dian.model.Customer;
+import com.dian.model.Manager;
 
 @Repository
-public interface CustomerRepository extends CrudRepository<Customer, Long> {
+public interface ManagerRepository extends CrudRepository<Manager, Long> {
 	// Create/Update
 	// 		save
 	//		saveAll
@@ -21,7 +21,6 @@ public interface CustomerRepository extends CrudRepository<Customer, Long> {
 	//		findAll
 	//		count
 	// 		existById
-	Iterable<Customer> findByLastName(String lastName);
-//	Iterable<Customer> findByUsername(String username);
-	Customer findByUsername(String username);
+//	Iterable<Manager> findByLastName(String lastName);
+	Manager findByUsername(String username);
 }

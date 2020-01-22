@@ -9,7 +9,7 @@ import com.dian.model.User;
 
 /**
  * NOTES:
- * 		- <User, Integer> in the example explorecali
+ * 		- <User, Integer> in the example 
  * 		- JpaRepository in example
  * 
  * @author guodi

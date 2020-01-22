@@ -9,12 +9,17 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpServerErrorException;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
+
+import java.io.IOException;
 import java.util.List;
 
 /** 
@@ -38,6 +43,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private JavaMailSender javaMailSender;
     
     // returns the role, associated with the token
     @Autowired
@@ -81,9 +89,20 @@ public class UserController {
     @PostMapping("/signup/customer")
     @PreAuthorize("hasRole('ROLE_BM')")
     @ResponseStatus(HttpStatus.CREATED)
-    public User signupCustomer(@RequestBody @Valid LoginDto loginDto){
+    public User signupCustomer(@RequestBody @Valid LoginDto loginDto, @RequestParam(value="email") String email){
     	logger.debug("registering customer username: " + loginDto.getUsername());
-    	logger.debug("registering customer password: " + loginDto.getPassword());    	
+    	logger.debug("registering customer password: " + loginDto.getPassword());
+
+    	// send welcome mail
+    	SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setTo(email);
+        msg.setFrom("ABC_Insurance_LLC");
+        msg.setSubject("Welcome to ABC Insurance");
+        msg.setText("Hello, your username is: " + loginDto.getUsername() 
+            			+ " and your password is: " + loginDto.getPassword());
+        javaMailSender.send(msg);
+        logger.debug("sending email");
+    	
     	return userService.signupCustomer(loginDto.getUsername(), loginDto.getPassword())
     			.orElseThrow(() -> new HttpServerErrorException(HttpStatus.BAD_REQUEST,"User already exists"));
     }

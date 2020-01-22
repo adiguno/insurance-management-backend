@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dian.model.Branch;
-import com.dian.model.Customer;
+import com.dian.model.Agent;
 import com.dian.service.BranchService;
-import com.dian.service.CustomerService;
+import com.dian.service.AgentService;
 
 
 
@@ -34,7 +34,6 @@ import com.dian.service.CustomerService;
  * NOTES:
  *	- using request params (should be used for searching/filtering)
  *	- use username as the unique check
- * 	- agents and branch managers have access to customer's information
  * 
  * - missing AUTHORIZATION
  * 
@@ -50,79 +49,67 @@ import com.dian.service.CustomerService;
 
 @RestController
 @CrossOrigin(origins="http://localhost:4200")
-@RequestMapping("/api/customer")
-public class CustomerController {
+@RequestMapping("/api/agent")
+public class AgentController {
 	
-	private CustomerService customerService;
+	private AgentService agentService;
 	private BranchService branchService;
 	
-    private static final Logger logger = LogManager.getLogger(CustomerController.class);
+    private static final Logger logger = LogManager.getLogger(AgentController.class);
 
 	
 	@Autowired
-	public CustomerController(CustomerService customerService, BranchService branchService) {
-		this.customerService = customerService;
+	public AgentController(AgentService agentService, BranchService branchService) {
+		this.agentService = agentService;
 		this.branchService = branchService;
 		
 	}
 	
 	@DeleteMapping("/delete")
 	public void deleteById(@RequestParam(value="id") long id) {
-		logger.debug("delete customer, id = " + id);
-		this.customerService.deleteCustomer(id);
+		logger.debug("delete agent, id = " + id);
+		this.agentService.deleteAgent(id);
 	}
 	
 	@PutMapping("/edit")
-	public Customer editById(
+	public Agent editById(
 			@RequestParam(value="id") long id,
 			@RequestParam(value="branchId") long branchId,
-			@RequestBody Customer cus) {
-		logger.debug("update customer, id = " + id);
+			@RequestBody Agent cus) {
+		logger.debug("update agent, id = " + id);
 		Branch branch = this.branchService.getBranchById(branchId);
-		Customer existing =  this.customerService.getCustomerById(id);
-		existing.setAddress(cus.getAddress());
-		existing.setAge(cus.getAge());
-		existing.setDate(cus.getDate());
-		existing.setEmail(cus.getEmail());
+		Agent existing =  this.agentService.getAgentById(id);
 		existing.setFirstName(cus.getFirstName());
 		existing.setLastName(cus.getLastName());
-		existing.setOccupation(cus.getOccupation());
-		existing.setSex(cus.getSex());
-		existing.setQualification(cus.getQualification());
+		existing.setDate(cus.getDate());
+		existing.setBranch(branch);
 		existing.setUsername(cus.getUsername());
 		existing.setPassword(cus.getPassword());
-		existing.setBranch(branch);
-		return this.customerService.updateCustomer(existing);
+		return this.agentService.updateAgent(existing);
 	}
 
 	@PostMapping("/add")
-	public Customer addNew(@RequestBody Customer cus, @RequestParam(value="branchId") long branchId) {
-		logger.debug("add customer, branchId = " + branchId);
+	public Agent addNew(@RequestBody Agent man, @RequestParam(value="branchId") long branchId) {
+		logger.debug("add agent, branchId = " + branchId);
 		Branch branch =  this.branchService.getBranchById(branchId);
-		cus.setBranch(branch);
-		return this.customerService.addCustomer(cus);
+		man.setBranch(branch);
+		return this.agentService.addAgent(man);
 	}	
 	
 	@GetMapping("/all") 
-	public List<Customer> findAll() {
-		return this.customerService.getAllCustomers();
+	public List<Agent> findAll() {
+		return this.agentService.getAllAgents();
 	}
 	
 	@GetMapping("/username")
-	public Customer findByUsername(@RequestParam(value="username") String username) {
-		logger.debug("get customer, by username = " + username);
-		return this.customerService.getCustomerByUsername(username);
-	}
-	
-	@GetMapping("/lastname")
-	public List<Customer> findByLastName(@RequestParam(value="lastName") String lastName) {
-		logger.debug("get customer, by lastName = " + lastName);
-		return this.customerService.getCustomerByLastName(lastName);
+	public Agent findByUsername(@RequestParam(value="username") String username) {
+		logger.debug("get agent, by username = " + username);
+		return this.agentService.getAgentByUsername(username);
 	}
 	
 	@GetMapping("/id")
-	public Customer findById(@RequestParam(value="id") long id) {
-		logger.debug("get customer, by id = " + id);
-		return this.customerService.getCustomerById(id);
+	public Agent findById(@RequestParam(value="id") long id) {
+		logger.debug("get agent, by id = " + id);
+		return this.agentService.getAgentById(id);
 	}
 }
